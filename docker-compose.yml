@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: goodhamburger-db
+    environment:
+      POSTGRES_DB: goodhamburger
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - goodhamburger-network
+
+  api:
+    build:
+      context: .
+      dockerfile: src/GoodHamburger.API/Dockerfile
+    container_name: goodhamburger-api
+    ports:
+      - "5000:8080"
+      - "5001:8443"
+    depends_on:
+      - postgres
+    environment:
+      - ConnectionStrings__DefaultConnection=Host=postgres;Port=5432;Database=goodhamburger;Username=postgres;Password=postgres
+      - ASPNETCORE_ENVIRONMENT=Development
+    networks:
+      - goodhamburger-network
+
+volumes:
+  postgres_data:
+
+networks:
+  goodhamburger-network:
+    driver: bridge

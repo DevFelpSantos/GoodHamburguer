@@ -1,0 +1,28 @@
+# Build outputs
+bin/
+obj/
+
+# IDEs
+.vs/
+.vscode/
+.idea/
+
+# Environment variables
+.env
+.env.local
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+*.log
+
+# Database
+*.db
+*.sqlite
+
+# User files
+*.user
+*.suo
