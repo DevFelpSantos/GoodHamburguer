@@ -1,6 +1,7 @@
 namespace GoodHamburger.API.Controllers
 {
     using GoodHamburger.API.Abstractions;
+    using GoodHamburger.API.Responses;
     using GoodHamburger.Application.DTOs;
     using GoodHamburger.Application.Services.Interfaces;
     using Microsoft.AspNetCore.Mvc;
@@ -15,88 +16,80 @@ namespace GoodHamburger.API.Controllers
         }
 
         [HttpPost]
-        [ProducesResponseType(typeof(PedidoResponseDto), StatusCodes.Status201Created)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<PedidoResponseDto>> Create(
-            [FromBody] CriarPedidoRequestDto dto,
-            CancellationToken ct)
+        public async Task<ActionResult<ApiResponse<PedidoResponseDto>>> Create(
+        [FromBody] CriarPedidoRequestDto dto,
+        CancellationToken ct)
         {
-            try
-            {
-                var result = await _service.CriarPedidoAsync(dto, ct);
-                return CreatedAtAction(nameof(GetById), new { id = result!.Id }, result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new { mensagem = ex.Message });
-            }
+            var result = await _service.CriarPedidoAsync(dto, ct);
+
+            return CreatedAtAction(nameof(GetById), new { id = result!.Id },
+                new ApiResponse<PedidoResponseDto>
+                {
+                    Success = true,
+                    Message = "Pedido criado com sucesso",
+                    Data = result
+                });
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<PedidoResponseDto>>> Get(CancellationToken ct)
+        public async Task<ActionResult<ApiResponse<List<PedidoResponseDto>>>> Get(CancellationToken ct)
         {
-            try
+            var result = await _service.ListarPedidosAsync(ct);
+
+            return Ok(new ApiResponse<List<PedidoResponseDto>>
             {
-                var result = await _service.ListarPedidosAsync(ct);
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new { mensagem = ex.Message });
-            }
+                Success = true,
+                Message = "Pedidos listados com sucesso",
+                Data = result
+            });
         }
 
         [HttpGet("{id}")]
-        [ProducesResponseType(typeof(PedidoResponseDto), StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<PedidoResponseDto>> GetById(int id, CancellationToken ct)
+        public async Task<ActionResult<ApiResponse<PedidoResponseDto>>> GetById(int id, CancellationToken ct)
         {
-            try
-            {
-                var result = await _service.ObterPedidoPorIdAsync(id, ct);
-                if (result == null)
-                    return NotFound(new { mensagem = $"Pedido com ID {id} não encontrado." });
+            var result = await _service.ObterPedidoPorIdAsync(id, ct);
 
-                return Ok(result);
-            }
-            catch (Exception ex)
+            if (result == null)
+                throw new KeyNotFoundException($"Pedido com ID {id} não encontrado.");
+
+            return Ok(new ApiResponse<PedidoResponseDto>
             {
-                return BadRequest(new { mensagem = ex.Message });
-            }
+                Success = true,
+                Message = "Pedido encontrado",
+                Data = result
+            });
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<PedidoResponseDto>> Update(
-            int id,
-            [FromBody] CriarPedidoRequestDto dto,
-            CancellationToken ct)
+        public async Task<ActionResult<ApiResponse<PedidoResponseDto>>> Update(
+        int id,
+        [FromBody] CriarPedidoRequestDto dto,
+        CancellationToken ct)
         {
-            try
+            var result = await _service.AtualizarPedidoAsync(id, dto, ct);
+
+            return Ok(new ApiResponse<PedidoResponseDto>
             {
-                var result = await _service.AtualizarPedidoAsync(id, dto, ct);
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new { mensagem = ex.Message });
-            }
+                Success = true,
+                Message = "Pedido atualizado com sucesso",
+                Data = result!
+            });
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id, CancellationToken ct)
+        public async Task<ActionResult<ApiResponse<object>>> Delete(int id, CancellationToken ct)
         {
-            try
-            {
-                var result = await _service.DeletarPedidoAsync(id, ct);
-                if (!result)
-                    return NotFound(new { mensagem = $"Pedido com ID {id} não encontrado." });
+            var result = await _service.DeletarPedidoAsync(id, ct);
 
-                return NoContent();
-            }
-            catch (Exception ex)
+            if (!result)
+                throw new KeyNotFoundException($"Pedido com ID {id} não encontrado.");
+
+            return Ok(new ApiResponse<object>
             {
-                return BadRequest(new { mensagem = ex.Message });
-            }
+                Success = true,
+                Message = "Pedido removido com sucesso",
+                Data = null!
+            });
         }
     }
 }

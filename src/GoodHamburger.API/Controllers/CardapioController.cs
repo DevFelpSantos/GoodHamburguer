@@ -1,6 +1,7 @@
 namespace GoodHamburger.API.Controllers
 {
     using GoodHamburger.API.Abstractions;
+    using GoodHamburger.API.Responses;
     using GoodHamburger.Application.DTOs;
     using GoodHamburger.Application.Services.Interfaces;
     using Microsoft.AspNetCore.Mvc;
@@ -15,19 +16,16 @@ namespace GoodHamburger.API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<MenuItemResponseDto>>> Get(CancellationToken ct)
+        public async Task<ActionResult<ApiResponse<List<MenuItemResponseDto>>>> Get(CancellationToken ct)
         {
-            try
+            var items = await _service.ObterCardapioAsync(ct);
+
+            return Ok(new ApiResponse<List<MenuItemResponseDto>>
             {
-                var items = await _service.ObterCardapioAsync(ct);
-                return Ok(items);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new { message = ex.Message });
-            }
+                Success = true,
+                Message = "Cardápio carregado com sucesso",
+                Data = items
+            });
         }
     }
-
 }
-
