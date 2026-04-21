@@ -199,7 +199,7 @@ public class CriarPedidoValidator : AbstractValidator<CriarPedidoRequestDto>
 
 ```bash
 # Clone o repositório
-git clone https://github.com/seu-usuario/goodhamburger.git
+git clone git@github.com:DevFelpSantos/GoodHamburguer.git
 cd goodhamburger
 
 # Inicie os containers (API + PostgreSQL)
@@ -214,7 +214,7 @@ Swagger: http://localhost:5000/swagger
 
 ```bash
 # Clone o repositório
-git clone https://github.com/seu-usuario/goodhamburger.git
+git clone git@github.com:DevFelpSantos/GoodHamburguer.git
 cd goodhamburger
 
 # Inicie apenas o PostgreSQL
