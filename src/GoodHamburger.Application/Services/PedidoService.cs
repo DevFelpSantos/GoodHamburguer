@@ -137,7 +137,7 @@ namespace GoodHamburger.Application.Services
                 pedido.ValorDesconto,
                 pedido.Total,
                 pedido.CreatedAt,
-                pedido.UpdateAt
+                pedido.UpdatedAt
             );
         }
     }

@@ -8,6 +8,7 @@ namespace GoodHamburger.Domain.Entities
 
         protected BaseEntity() { }
 
+
         protected BaseEntity(int id)
         {
             Id = id;

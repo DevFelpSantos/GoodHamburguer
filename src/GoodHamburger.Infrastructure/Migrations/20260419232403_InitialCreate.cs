@@ -25,7 +25,7 @@ namespace GoodHamburger.Infrastructure.Migrations
                     Tipo = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
                     Ativo = table.Column<bool>(type: "boolean", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdateAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
+                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -43,7 +43,7 @@ namespace GoodHamburger.Infrastructure.Migrations
                     ValorDesconto = table.Column<decimal>(type: "numeric(10,2)", precision: 10, scale: 2, nullable: false),
                     Total = table.Column<decimal>(type: "numeric(10,2)", precision: 10, scale: 2, nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdateAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
+                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -62,7 +62,7 @@ namespace GoodHamburger.Infrastructure.Migrations
                     PrecoUnitario = table.Column<decimal>(type: "numeric(10,2)", precision: 10, scale: 2, nullable: false),
                     Tipo = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdateAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
+                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -83,7 +83,7 @@ namespace GoodHamburger.Infrastructure.Migrations
 
             migrationBuilder.InsertData(
                 table: "MenuItems",
-                columns: new[] { "Id", "Ativo", "CreatedAt", "Nome", "Preco", "Tipo", "UpdateAt" },
+                columns: new[] { "Id", "Ativo", "CreatedAt", "Nome", "Preco", "Tipo", "UpdatedAt" },
                 values: new object[,]
                 {
                     { 1, true, new DateTime(2026, 4, 19, 23, 24, 3, 150, DateTimeKind.Utc).AddTicks(9001), "X Burger", 5.00m, "Sanduiche", null },

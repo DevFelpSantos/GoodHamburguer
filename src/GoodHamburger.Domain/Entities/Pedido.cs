@@ -1,8 +1,6 @@
-using GoodHamburger.Domain.Entities;
-
 namespace GoodHamburger.Domain.Entities
 {
-    public class Pedido : BaseEntity 
+    public class Pedido : BaseEntity
     {
         public decimal Subtotal { get; private set; }
         public decimal PercentualDesconto { get; private set; }
@@ -11,6 +9,7 @@ namespace GoodHamburger.Domain.Entities
         public ICollection<ItemPedido> Itens { get; private set; } = new List<ItemPedido>();
 
         protected Pedido() { }
+
 
         public Pedido(decimal subtotal, decimal percentualDesconto)
         {

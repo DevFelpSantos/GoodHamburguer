@@ -1,10 +1,8 @@
-using GoodHamburger.Domain.Entities;
-
 namespace GoodHamburger.Domain.Entities
 {
     public class MenuItem : BaseEntity
     {
-        public string Nome { get; private set; }
+        public string Nome { get; private set; } = string.Empty;
         public decimal Preco { get; private set; }
         public string Tipo { get; private set; }
         public bool Ativo { get; private set; } = true;
@@ -14,7 +12,7 @@ namespace GoodHamburger.Domain.Entities
         public MenuItem(int id, string nome, decimal preco, string tipo) : base(id)
         {
 
-            if (string.IsNullOrEmpty(nome))
+            if (string.IsNullOrWhiteSpace(nome))
             {
                 throw new ArgumentException("O nome é obrigatorio.");
             }
@@ -30,22 +28,32 @@ namespace GoodHamburger.Domain.Entities
             }
 
             Nome = nome;
-            this.Preco = preco;
-            this.Tipo = tipo;
+            Preco = preco;
+            Tipo = tipo;
         }
 
         public void Atualizar(string nome, decimal preco, string tipo)
         {
+
+            if (string.IsNullOrWhiteSpace(nome))
+                throw new ArgumentException("Nome inválido");
+
+            if (preco <= 0)
+                throw new ArgumentException("Preço inválido");
+
+            if (string.IsNullOrWhiteSpace(tipo))
+                throw new ArgumentException("Tipo inválido");
+
             Nome = nome;
-            this.Preco = preco;
-            this.Tipo = tipo;
-            UpdateAt = DateTime.UtcNow;
+            Preco = preco;
+            Tipo = tipo;
+            UpdatedAt = DateTime.UtcNow;
         }
 
-        public void Desaticar()
+        public void Desativar()
         {
             Ativo = false;
-            UpdateAt = DateTime.UtcNow;
+            UpdatedAt = DateTime.UtcNow;
         }
     }
 }
