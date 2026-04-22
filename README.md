@@ -1,4 +1,4 @@
-# 🍔 GoodHamburger API
+# GoodHamburger API
 
 **Sistema de Gerenciamento de Pedidos de Hambúrgueres com Descontos Inteligentes**
 
@@ -6,7 +6,7 @@ Uma API RESTful robusta e bem arquitetada para gerenciar pedidos de hambúrguere
 
 ---
 
-## 📋 Sumário
+## Sumário
 
 - [Visão Geral](#visão-geral)
 - [Stack Tecnológico](#stack-tecnológico)
@@ -20,16 +20,16 @@ Uma API RESTful robusta e bem arquitetada para gerenciar pedidos de hambúrguere
 
 ---
 
-## 👁️ Visão Geral
+## Visão Geral
 
 GoodHamburger é uma API moderna para gerenciar restaurantes de hambúrgueres, com foco em:
 
-✅ **Cardápio dinâmico** - Gerenciar itens de menu (sanduíches, acompanhamentos, bebidas)
-✅ **Pedidos inteligentes** - Criar e rastrear pedidos com validações automáticas
-✅ **Descontos automáticos** - Cálculo inteligente de descontos baseado em combinações de itens
-✅ **Documentação interativa** - Swagger UI integrado para explorar endpoints
-✅ **Testes completos** - Unit tests, integration tests e cobertura de código
-✅ **Docker ready** - Deploy em containers com um único comando
+ **Cardápio dinâmico** - Gerenciar itens de menu (sanduíches, acompanhamentos, bebidas)
+ **Pedidos inteligentes** - Criar e rastrear pedidos com validações automáticas
+ **Descontos automáticos** - Cálculo inteligente de descontos baseado em combinações de itens
+ **Documentação interativa** - Swagger UI integrado para explorar endpoints
+ **Testes completos** - Unit tests, integration tests e cobertura de código
+ **Docker ready** - Deploy em containers com um único comando
 
 ### Exemplo de Uso
 
@@ -53,7 +53,7 @@ POST /api/pedidos
 
 ---
 
-## 🛠️ Stack Tecnológico
+## Stack Tecnológico
 
 ### Backend
 - **Linguagem**: C# 12.0
@@ -84,7 +84,7 @@ POST /api/pedidos
 
 ---
 
-## 🏗️ Arquitetura
+## Arquitetura
 
 ### Padrão: Clean Architecture + 3-Camadas
 
@@ -129,65 +129,49 @@ Controllers que expõem endpoints
 
 ---
 
-## 💡 Decisões de Projeto
+## Decisões de Projeto
 
 ### 1. **Por que Clean Architecture?**
 
-✅ **Separação de responsabilidades** - Cada camada tem um propósito
-✅ **Testabilidade** - Domain não depende de banco/HTTP
-✅ **Flexibilidade** - Trocar PostgreSQL por SQL Server é trivial
-✅ **Escalabilidade** - Adicionar features não quebra código existente
+ **Separação de responsabilidades** - Cada camada tem um propósito
+ **Testabilidade** - Domain não depende de banco/HTTP
+ **Flexibilidade** - Trocar PostgreSQL por SQL Server é trivial
+ **Escalabilidade** - Adicionar features não quebra código existente
 
 ### 2. **Por que Entity Framework Core?**
 
-✅ **Migrations automáticas** - Versionamento de schema
-✅ **LINQ type-safe** - Compilador verifica queries
-✅ **Multi-banco** - Mesmo código funciona em PostgreSQL, SQL Server, MySQL
-✅ **Relacionamentos automáticos** - EF cuida de JOINs
+ **Migrations automáticas** - Versionamento de schema
+ **LINQ type-safe** - Compilador verifica queries
+ **Multi-banco** - Mesmo código funciona em PostgreSQL, SQL Server, MySQL
+ **Relacionamentos automáticos** - EF cuida de JOINs
 
 ### 3. **Por que FluentValidation?**
 
-✅ **Sintaxe fluida** - Mais legível que Data Annotations
-✅ **Reutilizável** - Um validator em múltiplos contextos
-✅ **Flexível** - Validações complexas (duplicatas, lógica customizada)
-
-```csharp
-public class CriarPedidoValidator : AbstractValidator<CriarPedidoRequestDto>
-{
-    public CriarPedidoValidator()
-    {
-        RuleFor(x => x.IdsItens)
-            .NotEmpty()
-            .Custom((ids, context) =>
-            {
-                if (ids.Count != ids.Distinct().Count())
-                    context.AddFailure("Itens duplicados não permitidos");
-            });
-    }
-}
-```
+ **Sintaxe fluida** - Mais legível que Data Annotations
+ **Reutilizável** - Um validator em múltiplos contextos
+ **Flexível** - Validações complexas (duplicatas, lógica customizada)
 
 ### 4. **Por que DTOs (Data Transfer Objects)?**
 
-✅ **Encapsulação** - Entity interna não é exposta
-✅ **Validação** - DTO recebe só dados necessários
-✅ **Versionamento** - API v1 com Entity diferente de v2
+ **Encapsulação** - Entity interna não é exposta
+ **Validação** - DTO recebe só dados necessários
+ **Versionamento** - API v1 com Entity diferente de v2
 
 ### 5. **Por que Async/Await em Tudo?**
 
-✅ **Escalabilidade** - 1 thread atende múltiplos clientes
-✅ **Responsividade** - Não bloqueia operações I/O
-✅ **Performance** - Menos threads = menos memória
+ **Escalabilidade** - 1 thread atende múltiplos clientes
+ **Responsividade** - Não bloqueia operações I/O
+ **Performance** - Menos threads = menos memória
 
 ### 6. **Por que Docker & Docker Compose?**
 
-✅ **Reprodutibilidade** - Dev/test/prod idênticos
-✅ **Isolamento** - API e PostgreSQL separados mas conectados
-✅ **Deploy trivial** - Um único comando (`docker-compose up`)
+ **Reprodutibilidade** - Dev/test/prod idênticos
+ **Isolamento** - API e PostgreSQL separados mas conectados
+ **Deploy trivial** - Um único comando (`docker-compose up`)
 
 ---
 
-## 🚀 Como Rodar
+## Como Rodar
 
 ### Pré-requisitos
 
@@ -266,14 +250,14 @@ curl http://localhost:5000/api/cardapio
 
 ---
 
-## 📡 Endpoints
+## Endpoints
 
 ### Base URL
 ```
 http://localhost:5000/api
 ```
 
-### 🍔 Cardápio
+### Cardápio
 
 #### Listar Todos os Itens
 ```http
@@ -312,7 +296,7 @@ GET /cardapio
 
 ---
 
-### 🛒 Pedidos
+### Pedidos
 
 #### Criar Novo Pedido
 ```http
@@ -526,7 +510,7 @@ DELETE /pedidos/1
 
 ---
 
-## 📋 Regras de Negócio
+## Regras de Negócio
 
 ### Desconto Inteligente
 
@@ -547,17 +531,17 @@ Pedido: X Burger (5.00) + Batata Frita (2.00) + Refrigerante (2.50)
 1. Subtotal = 5.00 + 2.00 + 2.50 = 9.50
 2. Detecta combinação completa → Desconto = 20%
 3. Valor Desconto = 9.50 * (20 / 100) = 1.90
-4. Total = 9.50 - 1.90 = 7.60 ✅
+4. Total = 9.50 - 1.90 = 7.60 
 ```
 
 ### Validações Automáticas
 
 | Validação | Erro | Exemplo |
 |-----------|------|---------|
-| Itens duplicados | "Não é permitido adicionar itens duplicados" | `[1, 1, 5]` ❌ |
-| Item não existe | "Item com ID {id} não encontrado" | `[1, 999, 5]` ❌ |
-| Múltiplos do mesmo tipo | "No máximo 1 sanduíche, 1 acompanhamento e 1 bebida" | `[1, 2, 3]` (3 sanduíches) ❌ |
-| Pedido vazio | "O pedido deve conter pelo menos um item" | `[]` ❌ |
+| Itens duplicados | "Não é permitido adicionar itens duplicados" | `[1, 1, 5]`  |
+| Item não existe | "Item com ID {id} não encontrado" | `[1, 999, 5]`  |
+| Múltiplos do mesmo tipo | "No máximo 1 sanduíche, 1 acompanhamento e 1 bebida" | `[1, 2, 3]` (3 sanduíches)  |
+| Pedido vazio | "O pedido deve conter pelo menos um item" | `[]`  |
 
 ### Tipos de Itens
 
@@ -576,22 +560,20 @@ Bebidas (ID 5):
 
 ---
 
-## ✅ Testes
+## Testes
 
 ### Estrutura de Testes
 
 ```
 tests/
-├── GoodHamburger.Tests.Domain/          (17 testes unitários)
-│   ├── MenuItemTests.cs                 (5 testes)
-│   └── PedidoTests.cs                   (4 testes)
-├── GoodHamburger.Tests.Application/     (5 testes unitários)
-│   └── DescontoServiceTests.cs           (5 testes)
-└── GoodHamburger.Tests.Integration/     (3 testes integração)
-    └── PedidoServiceIntegrationTests.cs  (3 testes)
+├── GoodHamburger.Tests.Domain/          
+│   ├── MenuItemTests.cs                 
+│   └── PedidoTests.cs                   
+├── GoodHamburger.Tests.Application/     
+│   └── DescontoServiceTests.cs           
+└── GoodHamburger.Tests.Integration/     
+    └── PedidoServiceIntegrationTests.cs
 ```
-
-**Total: 25 testes automatizados**
 
 ### Executar Testes
 

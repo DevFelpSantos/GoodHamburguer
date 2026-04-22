@@ -44,17 +44,14 @@ namespace GoodHamburger.Application.Services
                 itens.Add(item);
             }
 
-            var subtotal = itens.Sum(i => i.Preco);
-            var pedido = new Pedido(subtotal, 0);
+            var itensPedido = itens
+            .Select(i => new ItemPedido(i.Id, i))
+            .ToList();
 
-            foreach (var item in itens)
-            {
-                var itemPedido = new ItemPedido(item.Id, item);
-                pedido.AdicionarItem(itemPedido);
-            }
+            var percentualDesconto = _descontoService.CalcularPercentualDesconto(itensPedido);
 
-            var percentualDesconto = _descontoService.CalcularPercentualDesconto(pedido.Itens.ToList());
-            pedido.AtualizarValores(subtotal, percentualDesconto);
+            var pedido = Pedido.CriarDoItens(itensPedido, percentualDesconto);
+
 
             await _pedidoRepository.AddAsync(pedido, ct);
             await _pedidoRepository.SaveChangesAsync(ct);
@@ -96,14 +93,18 @@ namespace GoodHamburger.Application.Services
 
             pedido.Itens.Clear();
 
-            foreach (var item in itens)
+            var itensPedido = itens
+            .Select(i => new ItemPedido(i.Id, i))
+            .ToList();
+
+            foreach (var item in itensPedido)
             {
-                var itemPedido = new ItemPedido(item.Id, item);
-                pedido.AdicionarItem(itemPedido);
+                pedido.AdicionarItem(item);
             }
 
-            var subtotal = itens.Sum(i => i.Preco);
-            var percentualDesconto = _descontoService.CalcularPercentualDesconto(pedido.Itens.ToList());
+            var percentualDesconto = _descontoService.CalcularPercentualDesconto(itensPedido);
+            var subtotal = Pedido.CalcularSubtotal(itensPedido);
+
             pedido.AtualizarValores(subtotal, percentualDesconto);
 
             _pedidoRepository.Update(pedido);
