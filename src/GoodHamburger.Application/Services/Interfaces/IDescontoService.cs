@@ -4,6 +4,5 @@ namespace GoodHamburger.Application.Services.Interfaces
     public interface IDescontoService
     {
         decimal CalcularPercentualDesconto(List<ItemPedido> itens);
-        decimal CalcularValorDesconto(decimal subtotal, decimal percentualDesconto);
     }
 }

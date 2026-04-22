@@ -16,6 +16,39 @@ namespace GoodHamburger.Tests.Domain
             Assert.Equal(percentualDesconto, pedido.PercentualDesconto);
             Assert.Equal(1.90m, pedido.ValorDesconto);
             Assert.Equal(7.60m, pedido.Total);
+            Assert.Empty(pedido.Itens);
+        }
+        [Fact]
+        public void CriarDoItens_ComItensValidos_CalculaSubtotalAutomaticamente()
+        {
+            var itens = new List<ItemPedido>
+    {
+        new ItemPedido(1, new MenuItem(1, "X Burger", 5.00m, "Sanduiche")),
+        new ItemPedido(4, new MenuItem(4, "Batata Frita", 2.00m, "Acompanhamento")),
+        new ItemPedido(5, new MenuItem(5, "Refrigerante", 2.50m, "Bebida"))
+    };
+
+            var pedido = Pedido.CriarDoItens(itens, percentualDesconto: 20m);
+
+            Assert.Equal(9.50m, pedido.Subtotal);
+            Assert.Equal(20m, pedido.PercentualDesconto);
+            Assert.Equal(1.90m, pedido.ValorDesconto);
+            Assert.Equal(7.60m, pedido.Total);
+            Assert.Equal(3, pedido.Itens.Count);
+        }
+
+        [Fact]
+        public void CalcularSubtotal_ComItens_SomaPrecos()
+        {
+            var itens = new List<ItemPedido>
+    {
+        new ItemPedido(1, new MenuItem(1, "X Burger", 5.00m, "Sanduiche")),
+        new ItemPedido(4, new MenuItem(4, "Batata Frita", 2.00m, "Acompanhamento"))
+    };
+
+            var subtotal = Pedido.CalcularSubtotal(itens);
+
+            Assert.Equal(7.00m, subtotal);
         }
 
         [Theory]

@@ -22,10 +22,5 @@ namespace GoodHamburger.Application.Services
 
             return 0m;
         }
-
-        public decimal CalcularValorDesconto(decimal subtotal, decimal percentualDesconto)
-        {
-            return subtotal * (percentualDesconto / 100m);
-        }
     }
 }

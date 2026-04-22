@@ -13,7 +13,7 @@ namespace GoodHamburger.Tests.Application
         }
 
         [Fact]
-        public void CalcularPercentualDesconto_ComSanduicheEBatataERefrigerante_Retorna20()
+        public void CalcularPercentualDescontoTest()
         {
             var menuItem1 = new MenuItem(1, "X Burger", 5.00m, "Sanduiche");
             var menuItem4 = new MenuItem(4, "Batata Frita", 2.00m, "Acompanhamento");
@@ -32,7 +32,7 @@ namespace GoodHamburger.Tests.Application
         }
 
         [Fact]
-        public void CalcularPercentualDesconto_ComSanduicheERefrigerante_Retorna15()
+        public void CalcularPercentualDesconto_ComSanduicheERefrigerante()
         {
             var menuItem1 = new MenuItem(1, "X Burger", 5.00m, "Sanduiche");
             var menuItem5 = new MenuItem(5, "Refrigerante", 2.50m, "Bebida");
@@ -49,7 +49,7 @@ namespace GoodHamburger.Tests.Application
         }
 
         [Fact]
-        public void CalcularPercentualDesconto_ComSanduicheEBatata_Retorna10()
+        public void CalcularPercentualDesconto_ComSanduicheEBatata()
         {
             var menuItem1 = new MenuItem(1, "X Burger", 5.00m, "Sanduiche");
             var menuItem4 = new MenuItem(4, "Batata Frita", 2.00m, "Acompanhamento");
@@ -66,7 +66,7 @@ namespace GoodHamburger.Tests.Application
         }
 
         [Fact]
-        public void CalcularPercentualDesconto_ComApenasUmSanduiche_Retorna0()
+        public void CalcularPercentualDesconto_ComApenasUmSanduiche()
         {
             var menuItem1 = new MenuItem(1, "X Burger", 5.00m, "Sanduiche");
 
@@ -78,17 +78,6 @@ namespace GoodHamburger.Tests.Application
             var resultado = _service.CalcularPercentualDesconto(itens);
 
             Assert.Equal(0m, resultado);
-        }
-
-        [Fact]
-        public void CalcularValorDesconto_ComSubtotal9_5E20Porcento_Retorna1_9()
-        {
-            decimal subtotal = 9.50m;
-            decimal percentual = 20m;
-
-            var resultado = _service.CalcularValorDesconto(subtotal, percentual);
-
-            Assert.Equal(1.90m, resultado);
         }
     }
 }
