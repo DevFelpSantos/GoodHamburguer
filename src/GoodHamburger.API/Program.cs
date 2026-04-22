@@ -5,11 +5,9 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Debug da connection string
 Console.WriteLine("CONNECTION STRING:");
 Console.WriteLine(builder.Configuration.GetConnectionString("DefaultConnection"));
 
-// Services
 builder.Services.AddAppSwagger();
 builder.Services.AddAppServices(builder.Configuration);
 builder.Services.AddControllers();
@@ -26,7 +24,6 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
-// Middlewares
 app.UseMiddleware<ExceptionMiddleware>();
 app.UseAppSwagger();
 app.UseCors("AllowAll");
@@ -35,16 +32,10 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-// =============================
-// MIGRATIONS COM RETRY
-// =============================
 ApplyMigrations(app);
 
 app.Run();
 
-// =============================
-// MÉTODO DE MIGRATION
-// =============================
 static void ApplyMigrations(WebApplication app)
 {
     using var scope = app.Services.CreateScope();

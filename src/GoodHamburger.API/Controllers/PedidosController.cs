@@ -16,7 +16,7 @@ namespace GoodHamburger.API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<ApiResponse<PedidoResponseDto>>> Create(
+        public async Task<IActionResult> Create(
         [FromBody] CriarPedidoRequestDto dto,
         CancellationToken ct)
         {

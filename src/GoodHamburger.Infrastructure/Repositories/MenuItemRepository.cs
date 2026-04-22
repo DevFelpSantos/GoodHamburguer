@@ -5,7 +5,7 @@ namespace GoodHamburger.Infrastructure.Repositories
     using GoodHamburger.Domain.Interfaces;
     using GoodHamburger.Infrastructure.Data;
     using Microsoft.EntityFrameworkCore;
-    
+
     public class MenuItemRepository : IMenuItemRepository
     {
         private readonly GoodHamburgerContext _context;

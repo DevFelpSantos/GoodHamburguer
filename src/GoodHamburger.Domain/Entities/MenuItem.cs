@@ -7,7 +7,7 @@ namespace GoodHamburger.Domain.Entities
         public string Tipo { get; private set; }
         public bool Ativo { get; private set; } = true;
 
-        protected MenuItem() { }
+        public MenuItem() { }
 
         public MenuItem(int id, string nome, decimal preco, string tipo) : base(id)
         {
